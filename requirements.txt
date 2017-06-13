@@ -1,0 +1,2 @@
+cryptography==1.5
+pyVmomi==6.5.0.2017.5-1
