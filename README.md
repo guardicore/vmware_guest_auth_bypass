@@ -7,7 +7,7 @@ For more details on the vulnerability, check out the post we wrote up in [LinkHe
 ## Simple Demo
 Example:
 
-```vix.py -s 10.15.0.25 -u root -p vmware -c notepad.exe windows_server_3.vmx```
+```vix.py -s [target_ip] -u root -p password -c notepad.exe windows_demo_server```
 
 Command line options include:
 * `-s`, `--host`: Remote host to connect to
@@ -18,8 +18,10 @@ Command line options include:
 
 Enter as a position argument the target vm name.
 
+## Setup
+In order to run the vulnerability, vix.dll or libvixAllProducts.so must be available in the load path.
 
-
+On Windows this has been tested using vix.dll 1.13.2.
 
 
 # Authors (of most of the code)
