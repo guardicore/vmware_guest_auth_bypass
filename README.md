@@ -1,27 +1,21 @@
 # VIX Auth bypass demo
 
-This is a demonstration script to check if VIX users are capable of interacting with guest machines without required permissions.
+This is a demonstration script for the VIX authentication bypass. The script checks if a given user can run arbitrary commands on a given virtual machine.
 
-For more details on the vulnerability, check out the post we wrote up in [LinkHere](TodoLink)
+For more details on the vulnerability, check out our presentation in [BlackHat 2017](https://www.blackhat.com/us-17/briefings/schedule/index.html#escalating-insider-threats-using-vmwares-api-7300).
 
-## Simple Demo
-Example:
+## Usage
+Example execution
 
-```vix.py -s [target_ip] -u root -p password -c notepad.exe windows_demo_server```
+```vix.py -s 10.15.0.25 -u root -p vmware -c notepad.exe windows_server_3.vmx```
 
-Command line options include:
-* `-s`, `--host`: Remote host to connect to
-* `-o`, `--port`: Port to use, default is 443
+Command line flags:
+* `-s`, `--host`: Remote vSphere or ESXi host
 * `-u`, `--user`: User name to use when connecting to host
-* `-p`, `--password`: Password to use when connecting to host. Can be ommitted and entered interactively
-* `-c`, `--command`: Command to run on victim. Default exists for linux targets
+* `-p`, `--password`: Password to use when connecting to host, can omit and enter from stdin
+* `-c`, `--command`: Command to run on victim. Default exists for linux creates a file under /tmp
 
-Enter as a position argument the target vm name.
-
-## Setup
-In order to run the vulnerability, vix.dll or libvixAllProducts.so must be available in the load path.
-
-On Windows this has been tested using vix.dll 1.13.2.
+As a final argument, pass in the target vm name.
 
 
 # Authors (of most of the code)

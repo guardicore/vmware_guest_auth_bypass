@@ -6,8 +6,8 @@ from __future__ import print_function
 import argparse
 import getpass
 import hashlib
-import time
 import logging
+import time
 
 import pyVmomi
 from pyVim.connect import *
@@ -82,7 +82,7 @@ def wait_for_task(task, action_name, hide_result=False, update_status_callback=N
 
 def get_vmomi(attack_dict, vix_vm):
     name = vix_vm.name
-
+    logging.info("Finding vSphere virtual machine reference")
     si = SmartConnectNoSSL(host=attack_dict['host'], port=attack_dict['port'],
                            user=attack_dict['username'], pwd=attack_dict['password'])
 
@@ -91,7 +91,10 @@ def get_vmomi(attack_dict, vix_vm):
 
     for momi in view_ref.view:
         if momi.name == name:
+            logging.info("Found vSphere virtual machine reference")
             return momi
+    logging.error("Failed to find vSphere virtual machine reference")
+    raise ValueError("Error finding managed virtual machine reference")
 
 
 def _share_secret_with_vm(vmomi_vm, force_host_ref_count=False):
@@ -109,8 +112,8 @@ def _share_secret_with_vm(vmomi_vm, force_host_ref_count=False):
     opt.value = pw_hash.digest().encode("base64").strip()
     spec.extraConfig.append(opt)
 
-    print("SECRET_HASH:", opt.value)
-    print("SECRET:", shared_secret.encode("base64"))
+    logging.debug("Setting SECRET to ", shared_secret.encode("base64"))
+    logging.debug("SECRET_HASH:", opt.value)
 
     _validate_host_shared_policy_ref_count(vmomi_vm, force=force_host_ref_count)
 
@@ -205,13 +208,13 @@ def main():
     print(" :: Searching for VM...")
     for vm_name in vms:
         print(vm_name)
-        if not vm_name.endswith(attack_dict['vm_name']+'.vmx'):
+        if not vm_name.endswith(attack_dict['vm_name'] + '.vmx'):
             continue
 
         run_command_on_vm(attack_dict, conn, vm_name)
         return
 
-    print("vm name not found")
+    raise ValueError("Target VM not found")
 
 
 if __name__ == "__main__":
