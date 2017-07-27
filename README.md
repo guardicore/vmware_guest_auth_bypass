@@ -2,7 +2,7 @@ This repository contains two scripts related to the VIX authentication bypass pr
 * vix.py - An attack script using the vulnerability.
 * role_discovery.py - A risk assessment tool for vSphere environments.
 
-For more details on the vulnerability, check out our presentation in [BlackHat 2017](https://www.blackhat.com/us-17/briefings/schedule/index.html#escalating-insider-threats-using-vmwares-api-7300).
+For more details on the vulnerability, check out our presentation in [BlackHat 2017](https://www.blackhat.com/us-17/briefings/schedule/index.html#escalating-insider-threats-using-vmwares-api-7300) or the [blog post](https://www.guardicore.com/2017/07/escalating-insider-threats-using-vmwares-api/).
 
 # vix.py
 
